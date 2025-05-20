@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import type { Graph } from "./utils/types";
+import type { FormDefinition, Graph, GraphNode } from "./helpers/types";
 
 export default function App() {
   const [graph, setGraph] = useState<Graph | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
+  const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   useEffect(() => {
     fetch("http://localhost:3000/api/v1/123/actions/blueprints/bp_456/bpv_123/graph")
       .then(r => {
@@ -12,15 +11,52 @@ export default function App() {
         return r.json() as Promise<Graph>;
       })
       .then(setGraph)
-      .catch(err => setError(err.message));
+      .catch(console.error);
   }, []);
 
-  if (error) return <p style={{color:"red"}}>Error: {error}</p>;
   if (!graph) return <p>Loading graph…</p>;
 
+  const formNodes = graph.nodes.filter(n => n.type ==="form")
+  const selectedFormDef : FormDefinition | undefined =
+  selectedNode? graph.forms.find(f => f.id === selectedNode.data.component_id)
+  : undefined ;
+
+
   return (
-    <pre style={{whiteSpace: "pre-wrap", padding: 20}}>
-      {JSON.stringify(graph, null, 2)}
-    </pre>
+    <div style={{padding:20}}>
+      <h1> Available Forms</h1>
+      <ul>
+        {formNodes.map(n => (
+          <li key ={n.id}>
+            <button onClick={() => setSelectedNode(n)}>
+              {n.data.name}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {selectedNode && selectedFormDef && (
+        <div style={{marginTop: 20}}>
+          <h2> Config for "{selectedNode.data.name}"</h2>
+
+          <table border={1} cellPadding={5}>
+            <thead>...</thead>
+            <tbody>
+              {Object.keys(selectedFormDef.field_schema.properties).map(field => (
+                <tr key={field}>
+                  <td>{field}</td>
+                  <td>-- No mapping --</td>
+                  <td><button>Configure</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+      )}
+
+
+
+
+    </div>
   );
 }
