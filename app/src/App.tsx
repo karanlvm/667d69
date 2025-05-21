@@ -203,15 +203,30 @@ function onTogglePrefill(nodeId: string, checked: boolean) {
           />
 
           <PrefillModal
-            fieldName={fieldToConfigure || ""}
-            isOpen={Boolean(fieldToConfigure)}
-            options={modalOptions}
-            onSelect={(opt) => {
-              updateMapping(fieldToConfigure!, opt);
-              setFieldToConfigure(null);
-            }}
-            onClose={() => setFieldToConfigure(null)}
-          />
+              fieldName={fieldToConfigure || ""}
+              isOpen={Boolean(fieldToConfigure)}
+              options={modalOptions}
+              onSelect={(opt) => {
+                updateMapping(fieldToConfigure!, opt);
+
+                const newValue =
+                  opt.sourceFormId === "GLOBAL"
+                    ? GLOBAL_VALUES[opt.sourceField]
+                    : formValues[opt.sourceFormId]?.[opt.sourceField];
+
+                //  write  into this form’s state so the input box updates
+                setFormValues((prev) => ({
+                  ...prev,
+                  [currentNode.id]: {
+                    ...(prev[currentNode.id] || {}),
+                    [fieldToConfigure!]: newValue,
+                  },
+                }));
+
+                setFieldToConfigure(null);
+              }}
+              onClose={() => setFieldToConfigure(null)}
+            />
         </main>
       </div>
 
