@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./styles/App.css";
 import type { GraphNode, FormDefinition, Graph } from "./helpers/types";
 import { getUpstreamNodeIds } from "./helpers/utils";
 import { useGraph } from "./hooks/useGraph";
@@ -72,39 +72,44 @@ export default function App() {
     setMappings((p) => ({ ...p, [nodeId]: newMap }));
   }
 
-  function onTogglePrefill(nodeId: string, checked: boolean) {
-    setPrefillEnabled((p) => ({ ...p, [nodeId]: checked }));
-    if (!checked) {
-      setNodeMapping(nodeId, {});
-      return;
-    }
 
-    const newMap: Record<string, any> = {};
-    const newVals: Record<string, any> = {};
-
-    // first try GLOBAL, then each upstream form
-    const sources = ["GLOBAL", ...upstreamNodes.map((n) => n.id)];
-
-    Object.keys(currentDef.field_schema.properties).forEach((field) => {
-      for (const sid of sources) {
-        const v =
-          sid === "GLOBAL"
-            ? GLOBAL_VALUES[field]
-            : formValues[sid]?.[field];
-        if (v !== undefined) {
-          newMap[field] = { sourceFormId: sid, sourceField: field };
-          newVals[field] = v;
-          break;
-        }
-      }
-    });
-
-    setNodeMapping(nodeId, newMap);
-    setFormValues((p) => ({
-      ...p,
-      [nodeId]: { ...(p[nodeId] || {}), ...newVals },
-    }));
+function onTogglePrefill(nodeId: string, checked: boolean) {
+  setPrefillEnabled((p) => ({ ...p, [nodeId]: checked }));
+  if (!checked) {
+    setNodeMapping(nodeId, {});
+    return;
   }
+  if (!currentDef) return;
+
+  const newMap: Record<string, { sourceFormId: string; sourceField: string }> = {};
+  const newVals: Record<string, any> = {};
+
+  Object.keys(currentDef.field_schema.properties).forEach((field) => {
+    let found = false;
+    //try upstream values first
+    for (const up of upstreamNodes) {
+      const v = formValues[up.id]?.[field];
+      if (v !== undefined) {
+        newMap[field] = { sourceFormId: up.id, sourceField: field };
+        newVals[field] = v;
+        found = true;
+        break;
+      }
+    }
+    // if nothing upstream, fall back to global
+    if (!found) {
+      newMap[field] = { sourceFormId: "GLOBAL", sourceField: field };
+      newVals[field] = GLOBAL_VALUES[field];
+    }
+  });
+
+  setNodeMapping(nodeId, newMap);
+  setFormValues((p) => ({
+    ...p,
+    [nodeId]: { ...(p[nodeId] || {}), ...newVals },
+  }));
+}
+
 
   function updateMapping(field: string, opt: Option) {
     const nm = { ...(mappings[currentNode.id] || {}) };

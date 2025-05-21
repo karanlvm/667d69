@@ -4,7 +4,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import "./PrefillModal.css";
+import "../styles/PrefillModal.css";
 
 export interface Option {
   key: string;             // unique key, eg "GLOBAL.email" 
