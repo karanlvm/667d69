@@ -1,28 +1,19 @@
-// src/types.ts
-
-export interface Graph {
-  nodes: GraphNode[];
-  edges: GraphEdge[];
-  forms: FormDefinition[];
-  branches: any[];
-  triggers: any[];
-}
-
+/**
+    Core interfaces for the dynamic form workflow
+ 
+    GraphNode represents a form component in the flow
+    GraphEdge links nodes to define the sequence
+    FormDefinition describes the fields each form node uses
+    Graph ties nodes, edges, and form definitions into one structure
+ */
 export interface GraphNode {
   id: string;
-  type: string; // "form"
-  position: { x: number; y: number };
+  type: "form";
   data: {
-    id: string;
-    component_key: string;
-    component_type: string;
-    component_id: string;   // matches FormDefinition.id
-    name: string;           // e.g. "Form A"
-    prerequisites: string[];
-    input_mapping: Record<
-      string,
-      { sourceFormId: string; sourceField: string }
-    >;
+    component_id: string;
+    name: string;
+    input_mapping: Record<string, any>;
+    // …
   };
 }
 
@@ -33,9 +24,14 @@ export interface GraphEdge {
 
 export interface FormDefinition {
   id: string;
-  name: string;
-  description: string;
-  field_schema: { properties: Record<string, any> };
-  ui_schema: any;
-  dynamic_field_config: any;
+  field_schema: {
+    properties: Record<string, unknown>;
+  };
+  // …
+}
+
+export interface Graph {
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+  forms: FormDefinition[];
 }

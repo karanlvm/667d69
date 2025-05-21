@@ -1,0 +1,58 @@
+.sidebar {
+  background: #f5f7fa;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  background: #667eea;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.form-list {
+  padding: 56px 0 0 0;
+  list-style: none;
+  margin: 0;
+}
+
+.form-list-item {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.form-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 24px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.form-btn.active {
+  font-weight: 600;
+}
+
+.sidebar-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e3f2fd;
+  border-radius: 0 4px 4px 0;
+  z-index: 0;
+  pointer-events: none;
+}
