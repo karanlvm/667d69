@@ -66,11 +66,15 @@ export function PrefillModal({
   );
 
   // combine global and passed-in upstream options
-  const allOptions = useMemo(() => [...globalOptions, ...options], [
-    globalOptions,
-    options,
-  ]);
-
+const allOptions = useMemo(() => {
+  const combined = [...globalOptions, ...options];
+  const seen = new Set<string>();
+  return combined.filter((opt) => {
+    if (seen.has(opt.key)) return false;
+    seen.add(opt.key);
+    return true;
+  });
+}, [globalOptions, options]);
   // group options by the text before the first dot in their label
   const grouped = useMemo(() => {
     const map: Record<string, Option[]> = {};
