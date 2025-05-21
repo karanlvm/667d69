@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./styles/App.css";
 import type { GraphNode, FormDefinition, Graph } from "./helpers/types";
 import { getUpstreamNodeIds } from "./helpers/utils";
 import { useGraph } from "./hooks/useGraph";

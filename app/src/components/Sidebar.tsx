@@ -1,6 +1,6 @@
 import { motion, LayoutGroup } from "framer-motion";
 import type { GraphNode } from "../helpers/types";
-import "./Sidebar.css";
+import "../styles/Sidebar.css";
 
 interface SidebarProps {
   forms: GraphNode[];
