@@ -1,38 +1,249 @@
-.App {
-  text-align: center;
+/**
+What's in this stylesheet: 
+
+Main styles for the application layout and form UI:
+ Global reset and font import
+Header bar with gradient background
+Sidebar + toggle interactions
+Main content, form card scrolling area
+Button and form element styling
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+html, body, #root {
+  margin: 0;
+  height: 100%; /* ensure the app can stretch full-height */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: #f2f4f7;
+}
+
+/* Header bar with subtle shadow for depth */
+.title-bar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 64px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.title-bar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden; /* lock page scroll; inner panels scroll instead */
+}
+
+/* Sidebar and its toggle button */
+.sidebar {
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.toggle-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  background: #667eea;
   color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 10;
 }
 
-.App-link {
-  color: #61dafb;
+/* Highlight for the active form button */
+.sidebar-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(102, 126, 234, 0.2);
+  border-radius: 0 4px 4px 0;
+  z-index: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-list {
+  list-style: none;
+  padding: 0;
+  margin: 64px 0 0;
+}
+.form-list-item {
+  margin-bottom: 8px;
+}
+.form-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 24px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  border-radius: 0 4px 4px 0;
+  transition: background 0.2s;
+}
+.form-btn:hover {
+  background: rgba(0,0,0,0.03);
+}
+.form-btn.active {
+  font-weight: 600;
+}
+
+/* Main panel containing form content */
+.main-panel {
+  flex: 1;
+  padding: 32px;
+  background: #fafafa;
+  overflow: hidden; /* prevent outer scroll */
+}
+
+/* Scrollable card for each form */
+.form-card {
+  background: #fff;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-height: calc(100vh - 176px); /* allow only this area to scroll */
+  overflow-y: auto;
+}
+
+/* Form header layout */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.form-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.form-header label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+.form-header input {
+  margin-right: 8px;
+  transform: scale(1.1);
+}
+
+/* Individual field rows */
+.fields .field-row {
+  margin-bottom: 24px;
+}
+.field-row label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+.field-input-wrapper {
+  position: relative;
+}
+.field-input-wrapper input {
+  width: 100%;
+  padding: 12px 32px 12px 12px; /* extra right padding for clear icon */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.field-input-wrapper input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+.clear-btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.field-info {
+  margin-top: 6px;
+  font-size: 0.875rem;
+  color: #666;
+}
+.link-btn {
+  background: none;
+  border: none;
+  color: #667eea;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+}
+
+/* Primary action button */
+.next-btn {
+  padding: 12px 24px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: background 0.2s;
+}
+.next-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Footer text and links */
+.footer {
+  text-align: center;
+  padding: 16px;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #e0e0e0;
+  background: #fff;
+}
+.footer a {
+  color: #667eea;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Simple loading and error messages */
+.loading,
+.error {
+  padding: 20px;
+  text-align: center;
+  font-size: 1rem;
+}
+.error {
+  color: #d32f2f;
 }

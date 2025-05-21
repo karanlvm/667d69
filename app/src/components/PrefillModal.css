@@ -1,0 +1,121 @@
+/**
+What's in this stylesheet: 
+CSS file for the PrefilModal :D
+ */
+/* Overlay */
+.prefill-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Container: strict column layout */
+.prefill-modal-container {
+  background: #fff;
+  width: 80vw;
+  max-width: 700px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Header (fixed height) */
+.prefill-modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+.prefill-modal-header h3 {
+  margin: 0;
+}
+
+/* Body flex:1 so footer always shows */
+.prefill-modal-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.prefill-modal-sidebar {
+  width: 240px;
+  border-right: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+.prefill-modal-search {
+  padding: 8px 16px;
+  flex-shrink: 0;
+}
+.prefill-modal-search input {
+  width: 100%;
+  height: 32px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.prefill-modal-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px 16px;
+}
+.prefill-modal-group-label {
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.prefill-modal-list ul,
+.prefill-modal-list li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.prefill-modal-option {
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.prefill-modal-option.selected {
+  background: #e3f2fd;
+}
+
+/* Detail pane */
+.prefill-modal-detail {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+}
+
+/* Footer (always visible) */
+.prefill-modal-footer {
+  padding: 12px 24px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+.prefill-modal-footer button {
+  padding: 8px 16px;
+  margin-left: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.prefill-modal-footer button:last-child {
+  background: #667eea;
+  color: #fff;
+  border: none;
+}
+.prefill-modal-footer button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
