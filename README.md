@@ -151,6 +151,5 @@ npm test
 
 ![Test Results](TestResults.jpg)
 
-
 ## Author
-[Karan Vasudevamurthy]("https://karanlvm.info")
+[Karan Vasudevamurthy](https://karanlvm.info)
