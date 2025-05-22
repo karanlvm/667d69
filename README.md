@@ -58,12 +58,12 @@ npm start
 NOTE: Port 3000 will be taken up by the mockserver so React will ask you if it can use another available port and will give you the address in terminal.
 
 ## Demo
-![Demo Video](demo.gif)
+![Demo Video](./images/demo.gif)
 
 ## DAG of the forms
 Since we have another form F, I used the same DAG from the problem statement but with just one minor modification for Form F
 
-![Dag of forms](DAG.jpg)
+![Dag of forms](./images/DAG.jpg)
 
 ## Key Patterns
 
@@ -149,7 +149,7 @@ npm test
 
 ### Test Results
 
-![Test Results](TestResults.jpg)
+![Test Results](./images/TestResults.jpg)
 
 ## Author
 [Karan Vasudevamurthy](https://karanlvm.info)
