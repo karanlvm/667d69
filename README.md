@@ -55,7 +55,7 @@ cd app
 npm start
 ```
 
-NOTE: Port 3000 will be taken up by the mockserver so React will ask you if it can use another available port and will give you the address in terminal.
+Open http://localhost:3000/
 
 ## Demo
 ![Demo Video](./images/demo.gif)

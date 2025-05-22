@@ -10,7 +10,7 @@ import { PrefillModal, Option, GLOBAL_VALUES } from "./components/PrefillModal";
 import { Footer } from "./components/Footer";
 
 const GRAPH_URL =
-  "http://localhost:3000/api/v1/123/actions/blueprints/bp_456/bpv_123/graph";
+  "http://localhost:3001/api/v1/123/actions/blueprints/bp_456/bpv_123/graph";
 
 export default function App() {
   const { graph, error } = useGraph(GRAPH_URL);
